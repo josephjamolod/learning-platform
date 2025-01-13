@@ -22,7 +22,7 @@ export const LANDING_PAGE_MENU: MenuProps[] = [
     id: 1,
     label: "Pricing",
     icon: <CreditCard key={1} />,
-    path: "/pricing",
+    path: "#pricing",
     section: true,
   },
   {
