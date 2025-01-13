@@ -1,5 +1,5 @@
 import { JSX } from "react";
-import { Home, CreditCard, Search } from "lucide-react";
+import { Home, CreditCard, MapPinIcon } from "lucide-react";
 
 export interface MenuProps {
   id: number;
@@ -28,7 +28,7 @@ export const LANDING_PAGE_MENU: MenuProps[] = [
   {
     id: 2,
     label: "Explore",
-    icon: <Search key={2} />,
+    icon: <MapPinIcon key={2} />,
     path: "/explore",
   },
 ];
