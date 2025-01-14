@@ -37,7 +37,7 @@ export const FormGenerator = ({
             type={type}
             placeholder={placeholder}
             className="bg-themeBlack border-themeGray text-themeTextGray"
-            {...register(name === "email" ? "email" : "password")}
+            {...register(name)}
           />
           <ErrorMessage
             errors={errors}
