@@ -12,3 +12,190 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+
+  firstname  String
+  lastname   String
+  clerkId    String    @unique
+  image      String?
+  stripeId   String?
+  group      Group[]
+  membership Members[]
+  posts      Post[]
+  likes      Like[]
+  comments   Comment[]
+  message    Message[]
+
+  createdAt DateTime @default(now())
+}
+
+model Group {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.Uuid
+
+  name            String
+  category        String
+  thumbnail       String?
+  desccription    String?
+  domain          String?
+  jsonDescription String?
+  htmlDescription String?
+  icon            String?
+  gallery         String[]
+  active          Boolean        @default(false)
+  member          Members[]
+  channel         Channel[]
+  courses         Course[]
+  privacy         GROUP_PRIVACY  @default(PRIVATE)
+  affiliate       Affiliate?
+  subscription    Subscription[]
+
+  createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Group   Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId String? @db.Uuid
+
+  price  Int?
+  active Boolean @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model Members {
+  id      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Group   Group?  @relation(fields: [groupId], references: [id])
+  groupId String? @db.Uuid
+  User    User?   @relation(fields: [userId], references: [id])
+  userId  String? @db.Uuid
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, groupId])
+}
+
+model Post {
+  id        String  @id @db.Uuid
+  Author    User    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  String  @db.Uuid
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  channelId String  @db.Uuid
+
+  content     String
+  title       String?
+  jsonContent String?
+  htmlContent String?
+  likes       Like[]
+  comments    Comment[]
+
+  createdAt DateTime @default(now())
+}
+
+model Like {
+  id     String @id @db.Uuid
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.Uuid
+
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id        String   @id @db.Uuid
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String   @db.Uuid
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String   @db.Uuid
+  Comment   Comment? @relation(name: "CommentToComment", fields: [commentId], references: [id])
+  commentId String?  @db.Uuid
+
+  content String
+  replied Boolean?  @default(false)
+  //self relation 1 to many for comments
+  reply   Comment[] @relation(name: "CommentToComment")
+
+  createdAt DateTime @default(now())
+}
+
+model Channel {
+  id      String  @id @db.Uuid
+  Group   Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId String? @db.Uuid
+
+  name String
+  icon String
+  Post Post[]
+
+  createdAt DateTime @default(now())
+}
+
+model Course {
+  id      String  @id @db.Uuid
+  Group   Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId String? @db.Uuid
+
+  name        String
+  thumbnail   String
+  privacy     String
+  description String
+  published   Boolean  @default(false)
+  modules     Module[]
+
+  createdAt DateTime @default(now())
+}
+
+model Module {
+  id       String  @id @db.Uuid
+  Course   Course? @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  courseId String? @db.Uuid
+
+  title   String
+  section Section[]
+
+  createdAt DateTime @default(now())
+}
+
+model Section {
+  id       String  @id @db.Uuid
+  Module   Module? @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  moduleId String? @db.Uuid
+
+  content     String?
+  htmlContent String?
+  JsonContent String?
+  name        String  @default("New Section")
+  icon        String  @default("doc")
+  complete    Boolean @default(false)
+
+  createdAt DateTime @default(now())
+}
+
+model Affiliate {
+  id      String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  Group   Group?  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId String? @unique @db.Uuid
+
+  createdAt DateTime @default(now())
+}
+
+model Message {
+  id         String  @id @db.Uuid
+  sender     User?   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  senderId   String? @db.Uuid
+  receiverId String? @db.Uuid
+
+  message String
+
+  createdAt DateTime @default(now())
+}
+
+enum GROUP_PRIVACY {
+  PUBLIC
+  PRIVATE
+}
