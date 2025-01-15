@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 
-import GoogleAuthButton from "../oauth/page";
 import SignInForm from "@/components/forms/sign-in-form";
+import GoogleAuthButton from "@/components/global/google-oauth";
 
 export default function SignInPage() {
   return (
@@ -12,7 +12,7 @@ export default function SignInPage() {
         watch courses and become the best version of yourself
       </p>
       <SignInForm />
-      <div className="my-10 w-full relative ">
+      <div className="my-10 w-full relative border ">
         <div className="bg-black z-10 p-3 absolute text-white text-xs top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           OR CONTINUE WITH
         </div>

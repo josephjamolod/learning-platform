@@ -7,7 +7,7 @@ import { Label } from "../../ui/label";
 export type FormGeneratorProps = {
   type?: "text" | "email" | "password" | "number";
   inputType: "select" | "input" | "textarea";
-  options?: { value: string; label: string; id: string }[]; // Already optional
+  options?: { value: string; label: string; id: string }[];
   label?: string;
   placeholder: string;
   register: UseFormRegister<any>;
