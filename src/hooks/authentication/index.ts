@@ -120,42 +120,46 @@ export const useAuthSignUp = () => {
     }
   };
 
-  const onInitiateUserRegistration = handleSubmit(async (values) => {
-    if (!isLoaded) {
-      return toast("Error", { description: "Oops! something went wrong" });
-    }
-    try {
-      setCreating(true);
-      const completeSignUp = await signUp.attemptEmailAddressVerification({
-        code,
-      });
-      if (completeSignUp.status !== "complete") {
-        return toast("Error", {
-          description: "Oops! something went wrong. Status incomplete",
-        });
+  const onInitiateUserRegistration = handleSubmit(
+    async (values: z.infer<typeof signUpSchema>) => {
+      if (!isLoaded) {
+        return toast("Error", { description: "Oops! something went wrong" });
       }
-      if (completeSignUp.status === "complete") {
-        if (!signUp.createdUserId) return;
-        const user = await onSignUpUser({
-          firstname: values.firstname,
-          lastname: values.lastname,
-          clerkId: signUp.createdUserId,
-          image: "",
+      try {
+        setCreating(true);
+        const completeSignUp = await signUp.attemptEmailAddressVerification({
+          code,
         });
-        reset();
-        if (user?.status === 200) {
-          toast("Success", { description: user.message });
-          await setActive({ session: completeSignUp.createdSessionId });
-          router.push("/group/create");
+
+        if (completeSignUp.status !== "complete") {
+          return toast("Error", {
+            description: "Oops! something went wrong. Status incomplete",
+          });
         }
-        if (user?.status !== 200) {
-          toast("Error", { description: user.message + "action failed" });
+
+        if (completeSignUp.status === "complete") {
+          if (!signUp.createdUserId) return;
+          const user = await onSignUpUser({
+            firstname: values.firstname,
+            lastname: values.lastname,
+            clerkId: signUp.createdUserId,
+            image: "",
+          });
+          reset();
+          if (user?.status === 200) {
+            toast("Success", { description: user.message });
+            await setActive({ session: completeSignUp.createdSessionId });
+            router.push("/group/create");
+          }
+          if (user?.status !== 200) {
+            toast("Error", { description: user.message + "action failed" });
+          }
         }
+      } catch (error) {
+        console.error(JSON.stringify(error, null, 2));
       }
-    } catch (error) {
-      console.error(JSON.stringify(error, null, 2));
     }
-  });
+  );
 
   return {
     register,

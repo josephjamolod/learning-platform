@@ -46,10 +46,11 @@ const SignUpForm = () => {
           />
         ))
       )}
+      <div id="clerk-captcha"></div>
       {verifying ? (
         <Button type="submit" className="rounded-2xl">
           <Loader loading={creating} />
-          Sign Up With Email
+          Verify
         </Button>
       ) : (
         <Button
@@ -62,7 +63,7 @@ const SignUpForm = () => {
             })
           }
         >
-          <Loader loading />
+          <Loader loading={verifying} />
           Generate Code
         </Button>
       )}
