@@ -5,16 +5,12 @@ type BackdropGradientProps = {
   className?: string;
   container?: string;
 };
-const BackdropGradient = ({
-  className,
-  children,
-  container,
-}: BackdropGradientProps) => {
+const BackdropGradient = ({ children, container }: BackdropGradientProps) => {
   return (
     <div className={cn("relative w-full flex flex-col", container)}>
-      <div
+      {/* <div
         className={cn("absolute rounded-[50%] radial--blur mx-10", className)}
-      />
+      /> */}
       {children}
     </div>
   );
