@@ -28,8 +28,7 @@ export const onAuthenticateUser = async () => {
     return {
       status: 404,
     };
-  } catch (error) {
-    console.log(error);
+  } catch {
     return {
       status: 404,
     };
@@ -45,15 +44,6 @@ interface OnSignUpUserProp {
 
 export const onSignUpUser = async (values: OnSignUpUserProp) => {
   try {
-    //todo
-    //validate data using signUpSchema
-
-    //check user if already has an acc. return error if have
-    // const existingUser=await db.user.findUnique({where:{clerkId:values.clerkId}})
-    //hash the password
-    //create the user
-    //if return a response, select the all except password
-
     const createdUser = await db.user.create({ data: { ...values } });
     if (createdUser) {
       return {
@@ -65,10 +55,63 @@ export const onSignUpUser = async (values: OnSignUpUserProp) => {
 
     return { status: 400, message: "User could not created, please try again" };
   } catch (error) {
-    console.log(error);
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
     return {
       status: 400,
       message: "Oops! Something went wrong, please try again",
+    };
+  }
+};
+
+export const onSignInUser = async (clerkId: string) => {
+  try {
+    //check user if exist in db using clerkId
+    const loggedInUser = await db.user.findUnique({
+      where: { clerkId },
+      select: {
+        id: true,
+        group: {
+          select: {
+            id: true,
+            channel: {
+              select: { id: true },
+              take: 1,
+              orderBy: { createdAt: "asc" },
+            },
+          },
+        },
+      },
+    });
+
+    if (loggedInUser) {
+      if (loggedInUser.group.length > 0) {
+        return {
+          status: 207,
+          id: loggedInUser.id,
+          groupId: loggedInUser.group[0].id,
+          channelId: loggedInUser.group[0].channel[0].id,
+        };
+      }
+      return {
+        status: 200,
+        message: "User successfully logged in",
+        id: loggedInUser.id,
+      };
+    }
+    return {
+      status: 400,
+      message: "User could not be logged in! Try again",
+    };
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message);
+    }
+
+    return {
+      status: 400,
+      message: "Oops! Something went wrong. Try again",
     };
   }
 };
