@@ -7,6 +7,8 @@ type AuthLayOut = {
   children: React.ReactNode;
 };
 export default async function AuthLayOut({ children }: AuthLayOut) {
+  //check user using "currentUser()" from "@clerk/nextjs/server" and db if there is
+  // if there is redirect to "/callback/sign" page
   const user = await onAuthenticateUser();
   if (user.status === 200) redirect("/callback/sign-in");
   console.log("red");

@@ -76,7 +76,7 @@ export const useAuthSignUp = () => {
   const router = useRouter();
   const { isLoaded, setActive, signUp } = useSignUp();
   const [creating, setCreating] = useState(false);
-  const [verifying, setVerifying] = useState(false);
+  const [verifyingPhase, setVerifyingPhase] = useState(false);
   const [code, setCode] = useState("");
 
   const {
@@ -109,7 +109,7 @@ export const useAuthSignUp = () => {
         await signUp.prepareEmailAddressVerification({
           strategy: "email_code",
         });
-        setVerifying(true);
+        setVerifyingPhase(true);
       } else {
         return toast("Error", {
           description: "No fields must be empty",
@@ -166,7 +166,7 @@ export const useAuthSignUp = () => {
     errors,
     onGenerateCode,
     onInitiateUserRegistration,
-    verifying,
+    verifyingPhase,
     creating,
     code,
     setCode,

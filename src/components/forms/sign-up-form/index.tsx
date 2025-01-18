@@ -21,7 +21,7 @@ const SignUpForm = () => {
     register,
     code,
     creating,
-    verifying,
+    verifyingPhase,
     getValues,
     onGenerateCode,
     onInitiateUserRegistration,
@@ -32,7 +32,7 @@ const SignUpForm = () => {
       onSubmit={onInitiateUserRegistration}
       className="flex flex-col gap-3 mt-10"
     >
-      {verifying ? (
+      {verifyingPhase ? (
         <div className="flex justify-center mb-5">
           <OtpInput otp={code} setOtp={setCode} />
         </div>
@@ -47,7 +47,7 @@ const SignUpForm = () => {
         ))
       )}
       <div id="clerk-captcha"></div>
-      {verifying ? (
+      {verifyingPhase ? (
         <Button type="submit" className="rounded-2xl">
           <Loader loading={creating} />
           Verify
@@ -63,7 +63,7 @@ const SignUpForm = () => {
             })
           }
         >
-          <Loader loading={verifying} />
+          <Loader loading={false} />
           Generate Code
         </Button>
       )}
