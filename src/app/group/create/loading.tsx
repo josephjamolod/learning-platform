@@ -1,6 +1,6 @@
 const GroupLoading = () => {
   return (
-    <div className="h-screen w-full flex justify-center items-center">
+    <div className="h-full w-full flex justify-center items-center">
       <div role="status">
         <svg
           aria-hidden="true"
