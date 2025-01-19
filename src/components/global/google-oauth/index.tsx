@@ -2,8 +2,9 @@
 
 import { OAuthStrategy } from "@clerk/types";
 import { Button } from "@/components/ui/button";
-import Loader from "../loader";
+
 import { useGoogleAuth } from "@/hooks/authentication";
+import { Loader } from "../loader";
 
 interface GoogleAuthButtonProps {
   method: "signin" | "signup";
@@ -19,7 +20,7 @@ const GoogleAuthButton = ({ method }: GoogleAuthButtonProps) => {
       className="w-full rounded-2xl flex gap-3 bg-themeBlack border-themeGray"
       variant={"outline"}
     >
-      <Loader loading={false} /> Google
+      <Loader loading={false}>Google</Loader>
     </Button>
   );
 };
