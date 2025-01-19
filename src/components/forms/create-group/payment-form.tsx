@@ -80,8 +80,8 @@ const PaymentForm = ({ userId, affiliate, stripeId }: CreateGroupProps) => {
         </div>
         <div className="px-7 flex flex-col gap-5">
           <p className="text-sm text-themeTextGray">
-            Cancel anytime with 1-click. By clicking below, you accept
-            our terms.
+            Cancel anytime with 1-click. By clicking below, you accept our
+            terms.
           </p>
           <Link className="text-sm text-themeTextGray" href={"/explore"}>
             Skip for now

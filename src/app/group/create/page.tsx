@@ -8,7 +8,9 @@ interface CreateGroupPageProps {
   searchParams: { [affiliate: string]: string };
 }
 const CreateGroupPage = async ({ searchParams }: CreateGroupPageProps) => {
+  //get the user
   const user = await onAuthenticateUser();
+  //get affiliator info
   const affiliate = await onGetAffiliateInfo(searchParams.affiliate);
 
   if (!user || !user.id) {

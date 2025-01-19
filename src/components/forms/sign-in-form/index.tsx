@@ -1,7 +1,8 @@
 "use client";
 
 import { FormGenerator } from "@/components/global/form-generator";
-import Loader from "@/components/global/loader";
+import { Loader } from "@/components/global/loader";
+
 import { Button } from "@/components/ui/button";
 import { LOGO_CONSTANTS } from "@/constants";
 import { useAuthSignIn } from "@/hooks/authentication";
@@ -19,8 +20,7 @@ const SignInForm = () => {
         />
       ))}
       <Button type="submit" className="rounded-2xl">
-        <Loader loading={isPending} />
-        Sign In With Email
+        <Loader loading={isPending}> Sign In With Email</Loader>
       </Button>
     </form>
   );
