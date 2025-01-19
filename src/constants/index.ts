@@ -4,18 +4,20 @@ import {
   CREATE_GROUP_PLACEHOLDER,
   CREATE_GROUP_PLACEHOLDER_PROPS,
 } from "./placeholder";
+import { GROUP_LIST, GroupListProps } from "./slider";
 
 interface LogoConstantsProps {
   landingPageMenu: MenuProps[];
   signInForm: AuthFormProps[];
   signUpForm: AuthFormProps[];
   createGroupPlaceholder: CREATE_GROUP_PLACEHOLDER_PROPS[];
+  groupList: GroupListProps[];
 }
 
 export const LOGO_CONSTANTS: LogoConstantsProps = {
   landingPageMenu: LANDING_PAGE_MENU,
   signInForm: SIGN_IN_FORM,
   signUpForm: SIGN_UP_FORM,
-  // groupList:GROUP_LIST
   createGroupPlaceholder: CREATE_GROUP_PLACEHOLDER,
+  groupList: GROUP_LIST,
 };
