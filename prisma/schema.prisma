@@ -185,12 +185,12 @@ model Affiliate {
 }
 
 model Message {
-  id         String  @id @db.Uuid
-  sender     User?   @relation(fields: [senderId], references: [id], onDelete: Cascade)
-  senderId   String? @db.Uuid
-  receiverId String? @db.Uuid
+  id       String  @id @db.Uuid
+  sender   User?   @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  senderId String? @db.Uuid
 
-  message String
+  receiverId String? @db.Uuid
+  message    String
 
   createdAt DateTime @default(now())
 }

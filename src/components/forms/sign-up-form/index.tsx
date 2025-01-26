@@ -1,7 +1,8 @@
 "use client";
 
 import { FormGenerator } from "@/components/global/form-generator";
-import Loader from "@/components/global/loader";
+import { Loader } from "@/components/global/loader";
+
 import { Button } from "@/components/ui/button";
 import { LOGO_CONSTANTS } from "@/constants";
 import { useAuthSignUp } from "@/hooks/authentication";
@@ -49,8 +50,7 @@ const SignUpForm = () => {
       <div id="clerk-captcha"></div>
       {verifyingPhase ? (
         <Button type="submit" className="rounded-2xl">
-          <Loader loading={creating} />
-          Verify
+          <Loader loading={creating}> Verify</Loader>
         </Button>
       ) : (
         <Button
@@ -63,8 +63,7 @@ const SignUpForm = () => {
             })
           }
         >
-          <Loader loading={false} />
-          Generate Code
+          <Loader loading={false}> Generate Code</Loader>
         </Button>
       )}
     </form>
