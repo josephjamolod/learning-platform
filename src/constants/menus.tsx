@@ -32,3 +32,78 @@ export const LANDING_PAGE_MENU: MenuProps[] = [
     path: "/explore",
   },
 ];
+
+export const SIDEBAR_SETTINGS_MENU: MenuProps[] = [
+  {
+    id: 0,
+    label: "General",
+    icon: <CreditCard />,
+    path: "",
+  },
+  {
+    id: 1,
+    label: "Subscriptions",
+    icon: <CreditCard />,
+    path: "subscriptions",
+  },
+  {
+    id: 2,
+    label: "Affiliates",
+    icon: <CreditCard />,
+    path: "affiliates",
+  },
+  {
+    id: 3,
+    label: "Domain Config",
+    icon: <CreditCard />,
+    path: "domains",
+  },
+  {
+    id: 4,
+    label: "Integration",
+    icon: <CreditCard />,
+    path: "integrations",
+    integration: true,
+  },
+];
+
+// export const GROUP_PAGE_MENU: MenuProps[] = [
+//   {
+//     id: 0,
+//     label: "Group",
+//     icon: <Home />,
+//     path: "/",
+//     section: true,
+//   },
+//   {
+//     id: 1,
+//     label: "Courses",
+//     icon: <Courses />,
+//     path: "#pricing",
+//     section: true,
+//   },
+//   {
+//     id: 2,
+//     label: "Events",
+//     icon: <Buisness />,
+//     path: "/explore",
+//   },
+//   {
+//     id: 3,
+//     label: "Members",
+//     icon: <PersonalDevelopment />,
+//     path: "/explore",
+//   },
+//   {
+//     id: 4,
+//     label: "About",
+//     icon: <Document />,
+//     path: "/explore",
+//   },
+//   {
+//     id: 5,
+//     label: "Huddle",
+//     icon: <Chat />,
+//     path: "/explore",
+//   },
+// ];
