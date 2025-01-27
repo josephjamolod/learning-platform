@@ -9,7 +9,7 @@ type DropdownProps = {
   children: React.ReactNode;
   title: string;
   trigger: React.ReactNode;
-  ref?: React.RefObject<HTMLButtonElement>;
+  ref?: React.RefObject<HTMLButtonElement | null>;
 };
 const Dropdown = ({ children, title, trigger, ref }: DropdownProps) => {
   return (
