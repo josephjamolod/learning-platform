@@ -23,6 +23,8 @@ const IconDropDown = ({
   onSetIcon,
   currentIcon,
 }: Props) => {
+  console.log(icon);
+
   return (
     <Dropdown
       ref={ref}
@@ -36,14 +38,14 @@ const IconDropDown = ({
         </span>
       }
     >
-      <div id="icon-list" className="flex gap-x-2">
+      <div id="icon-list" className="flex gap-x-2 text-black">
         {ICON_LIST.map(
           (icons) =>
             icons.label !== icon && (
               <span
                 key={icons.id}
                 className={cn(
-                  currentIcon === icons.label ? "bg-themeGray" : "",
+                  currentIcon === icons.label ? "bg-black" : "",
                   "p-2 rounded-lg"
                 )}
                 onClick={() => onSetIcon(icons.label)}

@@ -12,4 +12,8 @@ export const ICON_LIST: IconListProps[] = [
     id: "1",
     label: "announcement",
   },
+  {
+    id: "2",
+    label: "doc",
+  },
 ];

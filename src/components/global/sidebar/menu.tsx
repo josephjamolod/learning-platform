@@ -29,17 +29,13 @@ const SideBarMenu = ({
 }: SideBarMenuProps) => {
   const pathname = usePathname();
   console.log({
-    channels,
-    groupUserId,
-    groupid,
     loading,
     optimisticChannel,
-    userId,
   });
   const currentPage = pathname.split("/").pop();
 
   const {
-    channel: current,
+    channel: channelId,
     onEditChannel,
     channelRef,
     inputRef,
@@ -52,10 +48,13 @@ const SideBarMenu = ({
     onChannelDelete,
     deleteVariables,
   } = useChannelInfo();
-  console.log("channels here");
-  console.log(channels);
+  // console.log("channels here");
+  // console.log(channels);
+  console.log(icon);
 
-  console.log(pathname);
+  // console.log(pathname);
+  console.log(deleteVariables?.id);
+  console.log(variables);
 
   if (pathname.includes("settings")) {
     return (
@@ -109,7 +108,7 @@ const SideBarMenu = ({
                   key={channel.id}
                   className={cn(
                     "flex justify-between hover:bg-themeGray p-2 group rounded-lg items-center",
-                    channel.id === current && edit && "bg-themeGray"
+                    channel.id === channelId && edit && "bg-themeGray"
                   )}
                   href={`/group/${channel.groupId}/channel/${channel.id}`}
                   {...(channel.name !== "general" &&
@@ -119,7 +118,8 @@ const SideBarMenu = ({
                     })}
                 >
                   <div className="flex gap-x-2 items-center">
-                    {channel.id === current && edit ? (
+                    {/* for icon edit or render */}
+                    {channel.id === channelId && edit ? (
                       <IconDropDown
                         ref={triggerRef}
                         page={currentPage}
@@ -134,7 +134,8 @@ const SideBarMenu = ({
                         mode={currentPage === channel.id ? "LIGHT" : "DARK"}
                       />
                     )}
-                    {channel.id === current && edit ? (
+                    {/* for channel name edit or render */}
+                    {channel.id === channelId && edit ? (
                       <Input
                         type="text"
                         ref={inputRef}
@@ -149,7 +150,7 @@ const SideBarMenu = ({
                             : "text-themeTextGray"
                         )}
                       >
-                        {isPending && variables && current === channel.id
+                        {isPending && variables && channelId === channel.id
                           ? variables.name
                           : channel.name}
                       </p>
@@ -167,6 +168,31 @@ const SideBarMenu = ({
                 </Link>
               )
           )}
+          {/* {loading && (
+            <Link
+              href={`/group/${optimisticChannel?.groupId}/channel/${optimisticChannel?.id}`}
+              className="flex justify-between hover:bg-themeGray p-2 group rounded-lg items-center"
+            >
+              <div className="flex gap-x-2 items-center">
+                <IconRenderer
+                  icon={optimisticChannel?.icon || ""}
+                  mode={
+                    currentPage === optimisticChannel?.id ? "LIGHT" : "DARK"
+                  }
+                />
+                <p
+                  className={cn(
+                    "text-lg capitalize",
+                    currentPage === optimisticChannel?.id
+                      ? "text-white"
+                      : "text-themeTextGray"
+                  )}
+                >
+                  {optimisticChannel?.name}
+                </p>
+              </div>
+            </Link>
+          )} */}
         </>
       ) : (
         <></>

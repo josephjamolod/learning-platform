@@ -61,12 +61,13 @@ const Sidebar = ({ groupid, userid, mobile }: SidebarProps) => {
   const { channels, groupInfo, groups, isPending, createChannel, variables } =
     useSideBar(groupid);
   // console.log(groups.groups);
-  console.log("here");
-  console.log(groupInfo);
+  // console.log("here");
+  // console.log(groups);
+  // console.log("variables here");
+  // console.log(variables);
 
   useGroupChatOnline(userid);
-  const hasGroups: boolean =
-    groups.groups && groups.groups.length > 0 ? true : false;
+  const hasGroups = groups.groups && groups.groups.length > 0 ? true : false;
   const hasChannel =
     channels && channels.channels && channels.channels?.length > 0;
   // console.log(hasGroups);
@@ -87,6 +88,7 @@ const Sidebar = ({ groupid, userid, mobile }: SidebarProps) => {
           : "w-full flex"
       )}
     >
+      {/* if user has group provide this dropdown with group info */}
       {hasGroups && (
         <Dropdown
           title="Groups"
@@ -108,6 +110,7 @@ const Sidebar = ({ groupid, userid, mobile }: SidebarProps) => {
             </div>
           }
         >
+          {/* if user has group as well as channels provide channel info */}
           {hasGroups &&
             hasChannel &&
             groups.groups?.map((item: IGroup) => (
@@ -131,7 +134,7 @@ const Sidebar = ({ groupid, userid, mobile }: SidebarProps) => {
       <div className="flex flex-col  gap-y-5">
         <div className="flex justify-between items-center text-secondary">
           <p className="text-xs ">CHANNELS</p>
-
+          {/* if user is the group owner allow him to create a channel */}
           {groupInfo.groupOwner && (
             <Plus
               size={16}
