@@ -256,3 +256,62 @@ export const onGetAllGroupMembers = async (groupid: string) => {
     return { status: 400, message: "Oops something went wrong" };
   }
 };
+
+export const onSearchGroups = async (
+  mode: "GROUPS" | "POSTS",
+  query: string,
+  paginate?: number
+) => {
+  try {
+    if (mode === "GROUPS") {
+      const fetchedGroups = await db.group.findMany({
+        where: {
+          name: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        take: 6,
+        skip: paginate || 0,
+      });
+
+      if (fetchedGroups) {
+        if (fetchedGroups.length > 0) {
+          return {
+            status: 200,
+            groups: fetchedGroups,
+          };
+        }
+
+        return { status: 404 };
+      }
+    }
+    if (mode === "POSTS") {
+      const fetchedPosts = await db.post.findMany({
+        where: {
+          content: {
+            contains: query,
+            mode: "insensitive",
+          },
+        },
+        take: 6,
+        skip: paginate || 0,
+      });
+
+      if (fetchedPosts) {
+        if (fetchedPosts.length > 0) {
+          return {
+            status: 200,
+            posts: fetchedPosts,
+          };
+        }
+
+        return { status: 404 };
+      }
+    }
+  } catch (error) {
+    console.log(error);
+
+    return { status: "400", message: "Oops! something went wrong" };
+  }
+};
